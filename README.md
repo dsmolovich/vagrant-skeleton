@@ -27,8 +27,8 @@ tree structure. Those files will overwrite default ones.
 ```
 .
 ├── .setup
-│   └── etc 									<- Customized settings for software to be installed 
-│       ├── hosts
+│   └── etc 									<- Customized settings for software
+│       ├── hosts								   to be installed
 │       ├── httpd
 │       │   ├── conf
 │       │   │   ├── httpd.conf
@@ -55,8 +55,8 @@ tree structure. Those files will overwrite default ones.
 ├── README.md
 ├── Vagrantfile									<- Main vagrant configuration file
 └── src
-    └── PROJECT_CODE 							<- Reference to project's code repository (git submodule)
-        ├── ...
+    └── PROJECT_CODE 							<- Reference to project's code repository
+        ├── ...									   (git submodule)
         ├── ...
         └── ...
 ```
