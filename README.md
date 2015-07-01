@@ -28,7 +28,7 @@ tree structure. Those files will overwrite default ones.
 .
 ├── .setup
 │   └── etc 									<- Customized settings for software
-│       ├── hosts								   to be installed
+│       ├── hosts                                  to be installed
 │       ├── httpd
 │       │   ├── conf
 │       │   │   ├── httpd.conf
@@ -53,10 +53,10 @@ tree structure. Those files will overwrite default ones.
 │           ├── ...
 │           └── webtatic.repo
 ├── README.md
-├── Vagrantfile									<- Main vagrant configuration file
+├── Vagrantfile                                 <- Main vagrant configuration file
 └── src
-    └── PROJECT_CODE 							<- Reference to project's code repository
-        ├── ...									   (git submodule)
+    └── PROJECT_CODE                            <- Reference to project's code repository
+        ├── ...                                    (git submodule)
         ├── ...
         └── ...
 ```
