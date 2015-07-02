@@ -1,7 +1,7 @@
 # Vagrant skeleton
 
 ## Preface
-This is not a real project, it's just a learning purpose project to inspire you to automate creation of virtual machine for your development or experimental needs. Although it lets you create a configure VM with LAMP out of the box.
+This is not a real project, it's just a learning purpose project to inspire you to automate creation of virtual machine for your development or experimental needs. Although it lets you create and configure VM with example LAMP project out of the box (just go through steps 6 and 7, don't forget the Prerequisite sections).
 
 Let's pretend one day you have been given a web project to be responsible for and only you have is just an access to production server.
 - What you would NOT want to do is to screw the project until you're confident enough with it.
