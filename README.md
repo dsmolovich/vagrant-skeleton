@@ -64,28 +64,27 @@ Visit ```http://example.com.local``` or ```http://phpmyadmin.local``` in your br
 │   │   ├── pki
 │   │   │   └── rpm-gpg
 │   │   │       ├── RPM-GPG-KEY-CentOS-6
-│   │   │       ├── ...
-│   │   │       └── RPM-GPG-KEY-webtatic-andy
+│   │   │       └── ...
 │   │   ├── rc.local
 │   │   └── yum.repos.d
 │   │       ├── CentOS-Base.repo
-│   │       ├── ...
-│   │       └── webtatic.repo
+│   │       └── ...
 │   └── root
 │       └── db
 │           └── import.sh                       <- Script to import seed data
 ├── README.md
 ├── Vagrantfile                                 <- Main vagrant configuration file
 └── src
-    └── PROJECT_CODE                            <- Reference to project's code repository
-        ├── ...                                    (git submodule)
-        ├── ...
-        └── ...
+    └── PROJECT_CODE                            <- Reference to project's code
+        ├── public                                 repository (git submodule)
+        │   └── ...
+        └── seed                                <- Seed data (sql dump)
+            └── ...
 ```
 
 ## Other useful vagrant commands
 - Destroy the VM:
-```vagrant destroy -d```
+```vagrant destroy -f```
 - Suspend the VM:
 ```vagrant suspend```
 - Resume the VM:
