@@ -1,6 +1,8 @@
 # Vagrant skeleton
 
 ## Preface
+This is not a real project, it's just a learning purpose project to inspire you to automate creation of virtual machine for your development or experimental needs. Although it lets you create a configure VM with LAMP out of the box.
+
 Let's pretend one day you have been given a web project to be responsible for and only you have is just an access to production server.
 - What you would NOT want to do is to screw the project until you're confident enough with it.
 - What you would like to do is to isolate your work from production as much as it is possible.
@@ -14,44 +16,64 @@ Here I'll show you how to replicate your production server as close as possible 
 
 ## What you need to do
 1. First examine your project as much as you can:
-- Which Linux version is running on the server?
-- What and which versions of the software it requires to be installed?
-- What third-party services it depends on?
+1.1. Which Linux version is running on the server?
+1.2. What and which versions of the software it requires to be installed?
+1.3. What third-party services it depends on? You may need to switch your project talking to their sandboxes.
 
-2. Copy all the configuration files from production server to .setup folder keeping the same
+2. Copy all the configuration files from production server to ```.setup``` folder keeping the same
 tree structure. Those files will overwrite default ones.
 
-3. Choose the appropriate vagrant box http://www.vagrantbox.es/ and modify box name (config.vm.box) and url (config.vm.box_url) in Vagrantfile
+3. Choose the appropriate vagrant box http://www.vagrantbox.es/ and modify box name (```config.vm.box```) and url (```config.vm.box_url```) in Vagrantfile
 
+4. Configure the memory and number of CPUs you give away to your VM in ```config.vm.provider``` section.
+
+5. Configure the section ```config.vm.provision``` for your project's needs.
+
+6. Spin up the VM ```vagrant up```
+
+7. Now add all the virtual hosts such as ```example.com.local``` and ```phpmyadmin.example.com.local along with VM's IP address to your host machine's hosts file (```/etc/hosts``` for Linux/Mac and ```C:\Windows\System32\Drivers\etc\hosts``` for Windows).
+
+Example:
+```
+192.168.33.100 example.com.local www.example.com.local
+192.168.33.100 phpmyadmin.local
+```
+
+That's it - your VM is running, configured and ready for the development. 
+
+Visit ```http://example.com.local``` or ```http://phpmyadmin.local``` in your browser.
+
+## Files layout
 
 ```
 .
 ├── .setup
-│   └── etc 									<- Customized settings for software
-│       ├── hosts                                  to be installed
-│       ├── httpd
-│       │   ├── conf
-│       │   │   ├── httpd.conf
-│       │   └── conf.d
-│       │       ├── example.01.com.conf
-│       │       ├── ...
-│       │       └── example.NN.com.conf
-│       ├── my.cnf
-│       ├── php.d
-│       │   ├── bcmath.ini
-│       │   ├── ...
-│       │   └── zip.ini
-│       ├── php.ini
-│       ├── pki
-│       │   └── rpm-gpg
-│       │       ├── RPM-GPG-KEY-CentOS-6
-│       │       ├── ...
-│       │       └── RPM-GPG-KEY-webtatic-andy
-│       ├── rc.local
-│       └── yum.repos.d
-│           ├── CentOS-Base.repo
-│           ├── ...
-│           └── webtatic.repo
+│   ├── etc 									<- Customized settings for software
+│   │   ├── hosts                                  to be installed
+│   │   ├── httpd
+│   │   │   ├── conf
+│   │   │   │   ├── httpd.conf
+│   │   │   └── conf.d
+│   │   │       └── example.com.conf
+│   │   ├── my.cnf
+│   │   ├── php.d
+│   │   │   ├── bcmath.ini
+│   │   │   ├── ...
+│   │   │   └── zip.ini
+│   │   ├── php.ini
+│   │   ├── pki
+│   │   │   └── rpm-gpg
+│   │   │       ├── RPM-GPG-KEY-CentOS-6
+│   │   │       ├── ...
+│   │   │       └── RPM-GPG-KEY-webtatic-andy
+│   │   ├── rc.local
+│   │   └── yum.repos.d
+│   │       ├── CentOS-Base.repo
+│   │       ├── ...
+│   │       └── webtatic.repo
+│   └── root
+│       └── db
+│           └── import.sh                       <- Script to import seed data
 ├── README.md
 ├── Vagrantfile                                 <- Main vagrant configuration file
 └── src
@@ -60,3 +82,11 @@ tree structure. Those files will overwrite default ones.
         ├── ...
         └── ...
 ```
+
+## Other useful vagrant commands
+- Destroy the VM:
+```vagrant destroy -d```
+- Suspend the VM:
+```vagrant suspend```
+- Resume the VM:
+```vagrant resume``` 

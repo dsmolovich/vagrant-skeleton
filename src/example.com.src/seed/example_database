@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `acl_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  `is_allowed` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_id` (`role_id`,`resource_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `acl_permissions` (`id`, `role_id`, `resource_id`, `is_allowed`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 0);

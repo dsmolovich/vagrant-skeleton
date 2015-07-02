@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network "private_network", ip: "192.168.56.100"
+  config.vm.network "private_network", ip: "192.168.33.100"
   config.vm.hostname = "skeleton.local"
 
   # Create a public network, which generally matched to bridged network.
@@ -41,7 +41,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder ".", "/synced/"
+  config.vm.synced_folder ".", "/synced/", :mount_options => ['dmode=774','fmode=775']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -79,39 +79,42 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
+    # Copy yum repos and gpg keys:
     cp /synced/.setup/etc/pki/rpm-gpg/* /etc/pki/rpm-gpg/
     cp /synced/.setup/etc/yum.repos.d/* /etc/yum.repos.d/
-    yum install -y httpd mod_ssl mysql mysql-server php55w php55w-mysql php55w-bcmath php55w-mbstring php55w-mcrypt php55w-tidy php55w-wddx php55w-pecl-xdebug phpmyadmin
 
-    # autostart
-    chkconfig mysqld on
-    chkconfig httpd on
+    # CUSTOMIZED SECTION BEGIN
 
-    # set mysql root password:
-    MYSQL_ROOT_PASSWORD='Toronto'
-    service mysqld start
-    /usr/bin/mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
+      # 1. Install the software:
+      yum install -y httpd mod_ssl mysql mysql-server php phpmyadmin
+      # + some cleanup:
+      rm /etc/httpd/conf.d/ssl.conf
 
-    # some cleanup:
-    rm /etc/httpd/conf.d/ssl.conf
+      # 2. Configure autostart
+      chkconfig mysqld on
+      chkconfig httpd on
 
-    # copy files to overwrite default ones:
-    cp -r /synced/.setup/* /
+      # 3. Set mysql's root password:
+      MYSQL_ROOT_PASSWORD='Toronto'
+      service mysqld start
+      /usr/bin/mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
 
-    # set permissions to log file:
-    chown apache:apache /var/log/zend_log/stage1/basic.log
+      # 5. Copy files:
+      cp -r /synced/.setup/* /
 
-    # set symlinks:
-    ln -s /usr/share/phpMyAdmin /var/www/phpmyadmin.stage1.natmatch.org
-    ln -s /var/www/local.natmatch.org /var/www/stage1.natmatch.org
+      # 7. Set symlinks:
+      ln -s /usr/share/phpMyAdmin /var/www/phpmyadmin.local
+      ln -s /synced/src/example.com.src /var/www/example.com
 
-    # import timezones:
-    mysql_tzinfo_to_sql /usr/share/zoneinfo/ | mysql -uroot -p$MYSQL_ROOT_PASSWORD mysql
+      # 8. Import seed data:
+      /bin/sh /root/db/import.sh
 
-    # import databases:
-    /bin/sh /root/db/import.sh
+    # CUSTOMIZED SECTION END
 
-    # (re)start services:
+    # add user 'apache' to vagrant group
+    usermod -a -G vagrant apache
+
+    # Restart services:
     service mysqld restart
     service httpd restart
   SHELL
