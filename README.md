@@ -31,7 +31,7 @@ tree structure. Those files will overwrite default ones.
 
 6. Spin up the VM ```vagrant up```
 
-7. Now add all the virtual hosts such as ```example.com.local``` and ```phpmyadmin.example.com.local along with VM's IP address to your host machine's hosts file (```/etc/hosts``` for Linux/Mac and ```C:\Windows\System32\Drivers\etc\hosts``` for Windows).
+7. Now add all the virtual hosts such as ```example.com.local``` and ```phpmyadmin.example.com.local``` along with VM's IP address to your host machine's hosts file (```/etc/hosts``` for Linux/Mac and ```C:\Windows\System32\Drivers\etc\hosts``` for Windows).
 
 Example:
 ```
@@ -41,7 +41,7 @@ Example:
 
 That's it - your VM is running, configured and ready for the development. 
 
-Visit ```http://example.com.local``` or ```http://phpmyadmin.local``` in your browser.
+Visit http://example.com.local or http://phpmyadmin.local in your browser.
 
 ## Files layout
 
@@ -83,9 +83,15 @@ Visit ```http://example.com.local``` or ```http://phpmyadmin.local``` in your br
 ```
 
 ## Other useful vagrant commands
+- SSH to VM as predefined sudoer user "vagrant"
+```vagrant ssh```
 - Destroy the VM:
 ```vagrant destroy -f```
 - Suspend the VM:
 ```vagrant suspend```
 - Resume the VM:
 ```vagrant resume``` 
+- Halt the VM:
+```vagrant halt``` 
+- Start the VM:
+```vagrant up``` 

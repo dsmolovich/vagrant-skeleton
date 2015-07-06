@@ -95,7 +95,7 @@ Vagrant.configure(2) do |config|
       chkconfig httpd on
 
       # 3. Set mysql's root password:
-      MYSQL_ROOT_PASSWORD='Toronto'
+      export MYSQL_ROOT_PASSWORD='000000'
       service mysqld start
       /usr/bin/mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
 

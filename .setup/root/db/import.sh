@@ -1,6 +1,6 @@
 #!/bin/sh
 DB_USERNAME='root'
-DB_PASSWORD='Toronto'
+DB_PASSWORD=$MYSQL_ROOT_PASSWORD
 SEED_DIR='/synced/src/example.com.src/seed/'
 
 echo 'Importing seed data ...'
