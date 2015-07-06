@@ -16,9 +16,9 @@ Here I'll show you how to replicate your production server as close as possible 
 
 ## What you need to do
 1. First examine your project as much as you can:
-1.1. Which Linux version is running on the server?
-1.2. What and which versions of the software it requires to be installed?
-1.3. What third-party services it depends on? You may need to switch your project talking to their sandboxes.
+	1. Which Linux version is running on the server?
+	2. What and which versions of the software it requires to be installed?
+	3. What third-party services it depends on? You may need to switch your project talking to their sandboxes.
 
 2. Copy all the configuration files from production server to ```.setup``` folder keeping the same
 tree structure. Those files will overwrite default ones.
